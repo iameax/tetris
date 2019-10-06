@@ -34,10 +34,7 @@ export default class Game {
     },
     [KeyCode.ARROW_LEFT]: () => this.board.tryMove(Direction.LEFT),
     [KeyCode.ARROW_RIGHT]: () => this.board.tryMove(Direction.RIGHT),
-    [KeyCode.ARROW_DOWN]: () => {
-      this.board.drop();
-      this.playSound(Sound.DROP);
-    },
+    [KeyCode.ARROW_DOWN]: () => this.board.drop(),
     [KeyCode.P]: () => this.board.togglePause(),
   };
 
@@ -71,7 +68,10 @@ export default class Game {
       stacks: this.stacks,
       speed: this.state.level,
       listeners: {
-        onLand: () => this.next(),
+        onLand: () => {
+          this.playSound(Sound.LAND);
+          this.next();
+        },
       }
     });
 

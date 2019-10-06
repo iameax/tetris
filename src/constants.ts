@@ -44,7 +44,7 @@ export type Dimensions = {
 export enum Sound {
   ROTATE = 'rotate',
   BLOCK = 'block',
-  DROP = 'drop',
+  LAND = 'land',
   COLLAPSE = 'collapse',
   PAUSE = 'pause',
   GAMEOVER = 'gameover',
@@ -53,7 +53,7 @@ export enum Sound {
 export const SOUND_SOURCES = {
   [Sound.ROTATE]: './sounds/block-rotate.mp3',
   [Sound.BLOCK]: './sounds/force-hit.mp3',
-  [Sound.DROP]: './sounds/slow-hit.mp3',
+  [Sound.LAND]: './sounds/slow-hit.mp3',
   [Sound.COLLAPSE]: './sounds/whoosh.mp3',
   [Sound.PAUSE]: './sounds/pause.mp3',
   [Sound.GAMEOVER]: './sounds/gameover.mp3',

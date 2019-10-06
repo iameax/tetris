@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+
 
 module.exports = {
   entry: './src/index.ts',
@@ -33,7 +35,10 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html"
-    })
+      template: "./static/index.html"
+    }),
+    new CopyPlugin([
+      { from: 'static' },
+    ])
   ]
 };
