@@ -1,0 +1,74 @@
+* {
+  box-sizing : border-box;
+}
+
+body {
+  margin: 0;
+  background-color : #311e69;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction : column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#game {
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  height : 610px;
+  /*width : 600px;
+  height : 600px;*/
+}
+
+#playground {
+  border: 10px solid #ff820170;
+  border-top: 0;
+  position : relative;
+}
+
+#playground canvas.figure, #playground canvas.stacks {
+  position : absolute;
+  left : 0;
+  top: 0 ;
+}
+
+#info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  font-size: 30px;
+  color: #ff7700;
+  background-color: rgba(31, 28, 28, 0.44);
+  border: 10px double #804919;
+  border-left: 0;
+  height: 100%;
+}
+
+#info .value {
+  font-size : 35px;
+  color: brown;
+}
+
+#info > * {
+  margin: 10px 15px 65px 15px;
+}
+
+.score {
+
+}
+
+.level {
+
+}
+
+#next-figure {
+  padding : 10px 0;
+  margin : 10px auto;
+}
