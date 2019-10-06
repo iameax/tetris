@@ -1,7 +1,7 @@
 import PlacedFigure from './PlacedFigure';
 import {IField} from './Field';
 import Matrix from './Matrix';
-import {color, Color} from './constants';
+import {color, ColorEnum} from './constants';
 import {listeners} from 'cluster';
 
 

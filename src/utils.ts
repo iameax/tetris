@@ -1,4 +1,4 @@
-import {Color, FIGURE_COLORS} from "./constants";
+import {ColorEnum, FIGURE_COLORS} from "./constants";
 
 
 export const randomColor = () => {

@@ -1,4 +1,4 @@
-import {color, Color, Dimensions} from "./constants";
+import {color, ColorEnum, Dimensions} from "./constants";
 
 
 const makeDots = (ctx: CanvasRenderingContext2D, {rows, cols}: Dimensions, color: color) => {
@@ -50,7 +50,7 @@ export const createBGCanvas = (parentEl: Element, dimensions: Dimensions) => {
 
   const {rows, cols} = dimensions;
   const ctx = canvasEl.getContext('2d');
-  ctx.fillStyle = Color.DARK_GRAY;
+  ctx.fillStyle = ColorEnum.DARK_GRAY;
   ctx.fillRect(0, 0, cols, rows);
 
   makeDots(ctx, dimensions, '#ff820170');

@@ -1,5 +1,5 @@
 import Matrix from './Matrix';
-import {Angle, Color} from './constants'
+import {Angle, ColorEnum} from './constants'
 
 
 const SHAPES: Matrix<number>[] = [

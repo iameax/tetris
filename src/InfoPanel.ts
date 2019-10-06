@@ -1,7 +1,7 @@
 import FigureBox from './FigureBox';
 import Figure from './Figure';
 import {IField} from "./Field";
-import {Color} from "./constants";
+import {ColorEnum} from "./constants";
 
 
 export type InfoState = {

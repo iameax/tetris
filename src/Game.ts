@@ -3,7 +3,7 @@ import Figure, {FigureGenerator} from './Figure';
 import {Field} from './Field';
 import FigureBox from './FigureBox';
 import InfoPanel from './InfoPanel';
-import {Color, Dimensions, Direction, KeyCode, Sound, SOUND_SOURCES} from './constants';
+import {ColorEnum, Dimensions, Direction, KeyCode, Sound, SOUND_SOURCES} from './constants';
 import Stacks from './Stacks';
 import {createBGCanvas, figureCanvas, nextFigureCanvas, stacksCanvas} from "./canvasHelpers";
 

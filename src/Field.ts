@@ -1,9 +1,10 @@
-import tinycolor from 'tinycolor2';
 import Matrix from './Matrix'
-import {color, Color, Dimensions} from './constants';
+import {color, ColorEnum, Dimensions} from './constants';
 import Figure from './Figure';
 import PlacedFigure from './PlacedFigure';
 
+
+const Color = require('color');
 
 export interface IField {
   setState(state: Matrix<color>);
@@ -79,7 +80,7 @@ class Field implements IField {
     // this.ctx.fillRect(x, y, 1, 1);
     this.ctx.fillRect(x + 0.025, y + 0.025, 0.925, 0.925);
     // this.ctx.globalCompositeOperation = 'screen';
-    this.ctx.fillStyle = tinycolor(color).lighten(5).toString();
+    this.ctx.fillStyle = Color(color).lighten(0.1).string();
     this.ctx.fillRect(x + 0.15, y + 0.15, 0.7, 0.7);
   }
 

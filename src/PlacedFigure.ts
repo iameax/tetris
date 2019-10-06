@@ -1,5 +1,5 @@
 import Figure from './Figure';
-import {Angle, color, Color, Direction} from './constants';
+import {Angle, color, ColorEnum, Direction} from './constants';
 
 
 type State = {

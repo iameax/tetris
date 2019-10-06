@@ -1,7 +1,7 @@
 import Matrix from './Matrix'
 import Figure from './Figure';
 import {Field, IField} from './Field';
-import {Angle, Color, Direction} from './constants';
+import {Angle, ColorEnum, Direction} from './constants';
 import PlacedFigure from './PlacedFigure';
 import Stacks from './Stacks';
 import {randomColor} from "./utils";

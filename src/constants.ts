@@ -9,7 +9,7 @@ export enum Angle {
 
 export type color = string;
 
-export enum Color {
+export enum ColorEnum {
   NONE = 'transparent',
   BLACK = '#000',
   DARK_GRAY = '#343333',
