@@ -1,4 +1,5 @@
-import Figure from "./Figure";
+import Matrix from './Matrix';
+
 
 export enum Angle {
   D_0 = 0,
@@ -6,8 +7,6 @@ export enum Angle {
   D_180 = 180,
   D_270 = 270,
 }
-
-export type color = string;
 
 export enum ColorEnum {
   NONE = 'transparent',
@@ -27,21 +26,16 @@ export enum Direction {
 }
 
 export enum KeyCode {
-  SPACE = 32,
-  ESC = 27,
-  ENTER = 13,
-  ARROW_LEFT = 37,
-  ARROW_RIGHT = 39,
-  ARROW_DOWN = 40,
-  P = 80,
+  SPACE = 'Space',
+  ESC = 'Escape',
+  ENTER = 'Enter',
+  ARROW_LEFT = 'ArrowLeft',
+  ARROW_RIGHT = 'ArrowRight',
+  ARROW_DOWN = 'ArrowDown',
+  P = 'KeyP',
 }
 
-export type Dimensions = {
-  rows: number,
-  cols: number,
-}
-
-export enum Sound {
+export enum AudioType {
   ROTATE = 'rotate',
   BLOCK = 'block',
   LAND = 'land',
@@ -50,13 +44,48 @@ export enum Sound {
   GAMEOVER = 'gameover',
 }
 
-export const SOUND_SOURCES = {
-  [Sound.ROTATE]: './sounds/block-rotate.mp3',
-  [Sound.BLOCK]: './sounds/force-hit.mp3',
-  [Sound.LAND]: './sounds/slow-hit.mp3',
-  [Sound.COLLAPSE]: './sounds/whoosh.mp3',
-  [Sound.PAUSE]: './sounds/pause.mp3',
-  [Sound.GAMEOVER]: './sounds/gameover.mp3',
+export const AUDIOS = {
+  [AudioType.ROTATE]: new Audio('./sounds/block-rotate.mp3'),
+  [AudioType.BLOCK]: new Audio('./sounds/force-hit.mp3'),
+  [AudioType.LAND]: new Audio('./sounds/slow-hit.mp3'),
+  [AudioType.COLLAPSE]: new Audio('./sounds/whoosh.mp3'),
+  [AudioType.PAUSE]: new Audio('./sounds/pause.mp3'),
+  [AudioType.GAMEOVER]: new Audio('./sounds/gameover.mp3'),
 };
+
+export const SHAPES: Matrix<number>[] = [
+  new Matrix([
+    [1, 1],
+    [1, 1],
+  ]),
+  new Matrix([
+    [1],
+    [1],
+    [1],
+    [1],
+  ]),
+  new Matrix([
+    [1, 1, 0],
+    [0, 1, 1],
+  ]),
+  new Matrix([
+    [0, 1, 1],
+    [1, 1, 0],
+  ]),
+  new Matrix([
+    [0, 1, 0],
+    [1, 1, 1],
+  ]),
+  new Matrix([
+    [1, 0],
+    [1, 0],
+    [1, 1],
+  ]),
+  new Matrix([
+    [0, 1],
+    [0, 1],
+    [1, 1],
+  ]),
+];
 
 export const SELECTORS = {};

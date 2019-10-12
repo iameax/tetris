@@ -1,94 +1,84 @@
+import { Angle, Direction } from './constants';
+import { Shape, Color } from './types';
 import Matrix from './Matrix';
-import {Angle, ColorEnum} from './constants'
 
 
-const SHAPES: Matrix<number>[] = [
-  new Matrix([
-    [1, 1],
-    [1, 1],
-  ]),
-  new Matrix([
-    [1],
-    [1],
-    [1],
-    [1],
-  ]),
-  new Matrix([
-    [1, 1, 0],
-    [0, 1, 1],
-  ]),
-  new Matrix([
-    [0, 1, 1],
-    [1, 1, 0],
-  ]),
-  new Matrix([
-    [0, 1, 0],
-    [1, 1, 1],
-  ]),
-  new Matrix([
-    [1, 0],
-    [1, 0],
-    [1, 1],
-  ]),
-  new Matrix([
-    [0, 1],
-    [0, 1],
-    [1, 1],
-  ]),
-];
+type State = {
+  color: Color;
+  position: { x: number; y: number };
+  shape: Shape;
+}
 
-class Figure {
-  private coords: Matrix<number>;
+export default class Figure {
+  public position;
+  public shape: Shape;
+  public color;
 
-  constructor(coords: Matrix<number>, angle: Angle = Angle.D_0) {
-    this.coords = coords;
-
-    if (angle !== Angle.D_0) {
-      this.rotate(angle);
-    }
+  constructor({ position, shape, color }: State) {
+    this.position = position;
+    this.shape = shape;
+    this.color = color;
   }
-  
+
+  public move(direction: Direction) {
+    const newPosition = { ...this.position };
+
+    switch (direction) {
+      case Direction.DOWN: {
+        newPosition.y++;
+        break;
+      }
+      case Direction.LEFT: {
+        newPosition.x--;
+        break;
+      }
+      case Direction.RIGHT: {
+        newPosition.x++;
+        break;
+      }
+    }
+
+    return new Figure({ ...this, position: newPosition });
+  }
+
+  // todo can't rotate close to walls
   public rotate(angle: Angle = Angle.D_90) {
+    const currentCols = this.shape.cols;
+    const newShape = this.rotateShape(angle);
+    const newCols = newShape.cols;
+
+    const delta = (currentCols - newCols) / 2;
+    const newPosition = { ...this.position };
+    newPosition.x += delta > 0 ? Math.ceil(delta) : Math.floor(delta);
+
+    return new Figure({ ...this, position: newPosition, shape: newShape });
+  }
+
+  public rotateShape(angle: Angle = Angle.D_90): Shape {
     const rotateTimes = ((angle + 360) % 360) / 90;
+    let result = this.shape;
+
     for (let i = 0; i < rotateTimes; i++) {
-      this._rotate();
+      result = this._rotateShape(result);
     }
-  }
-  
-  public getCoords() {
-    return this.coords;
+
+    return result;
   }
 
-  public clone() {
-    return new Figure(this.coords.clone())
-  }
+  private _rotateShape(shape): Shape {
+    const { rows, cols } = shape.dimensions;
 
-  private _rotate() {
-    const { rows, cols } = this.coords.dimensions();
-
-    const newCoords = Matrix.create({ rows: cols, cols: rows });
+    const newShape: Matrix<number> = Matrix.create({ rows: cols, cols: rows });
 
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const newY = x;
         const newX = rows - y - 1;
 
-        newCoords.set(newY, newX, this.coords.get(y, x));
+        newShape.set(newY, newX, this.shape.get(y, x));
       }
     }
 
-    this.coords = newCoords;
+    return newShape;
   }
 }
-
-class FigureGenerator {
-  static next() {
-    const index = Math.floor(Math.random() * SHAPES.length);
-    const figure = new Figure(SHAPES[index], Angle.D_0);
-    
-    return figure;
-  }
-}
-
-export default Figure;
-export { FigureGenerator };

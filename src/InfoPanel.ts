@@ -1,29 +1,32 @@
-import FigureBox from './FigureBox';
-import Figure from './Figure';
-import {IField} from "./Field";
-import {ColorEnum} from "./constants";
+import Matrix from './Matrix';
+import CanvasBoard from './CanvasBoard';
+import { Shape } from './types';
 
 
 export type InfoState = {
-  level: number,
-  score: number,
-  nextFigure?: Figure,
+  level: number;
+  score: number;
+  nextShape?: Matrix<number>;
 }
 
 export default class InfoPanel {
   private state: InfoState;
-  private nextFigure: Figure;
-  private field: IField;
+  private nextShape: Shape;
+  private board: CanvasBoard;
 
   private el: Element;
   private levelEl: Element;
   private scoreEl: Element;
 
-  constructor(el, field: IField, state: InfoState) {
+  constructor(el, state: InfoState) {
     this.levelEl = el.querySelector('#level');
     this.scoreEl = el.querySelector('#score');
     this.state = state;
-    this.field = field;
+    
+    this.board = new CanvasBoard(el.querySelector('canvas.next-shape'), 25, {
+      rows: 4,
+      cols: 4
+    });
 
     this.render();
   }
@@ -34,21 +37,20 @@ export default class InfoPanel {
   }
 
   render() {
-    const { level, score, nextFigure } = this.state;
+    const { level, score, nextShape } = this.state;
 
     this.levelEl.innerHTML = String(level);
     this.scoreEl.innerHTML = String(score);
 
-    if (nextFigure) {
-      const { rows: figureRows, cols: figureCols } = nextFigure.getCoords().dimensions();
-      const { cols: fieldCols } = this.field.dimensions();
+    if (nextShape) {
+      const { rows: shapeRows, cols: shapeCols } = nextShape.dimensions;
+      const { rows: boardRows, cols: boardCols } = this.board.dimensions;
 
-      const offsetX = Math.floor(fieldCols / 2) - Math.floor(figureCols / 2);
-      const offsetY = 0;
+      const offsetX = Math.ceil(boardCols / 2) - Math.ceil(shapeCols / 2);
+      const offsetY = Math.ceil(boardRows / 2) - Math.ceil(shapeRows / 2);
 
-      this.field.clear();
-      this.field.fillCoords(nextFigure.getCoords(), { x: offsetX, y: offsetY }, 'brown');
-      this.field.render();
+      this.board.clear();
+      this.board.fillMatrix(nextShape, 'brown', { x: offsetX, y: offsetY });
     }
   }
 }

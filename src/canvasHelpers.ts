@@ -1,7 +1,8 @@
-import {color, ColorEnum, Dimensions} from "./constants";
+import { ColorEnum } from "./constants";
+import { Dimensions, Color } from './types';
 
 
-const makeDots = (ctx: CanvasRenderingContext2D, {rows, cols}: Dimensions, color: color) => {
+const makeDots = (ctx: CanvasRenderingContext2D, { rows, cols }: Dimensions, color: Color) => {
   ctx.fillStyle = color;
 
   for (let y = 0; y < rows; y++) {
@@ -14,7 +15,7 @@ const makeDots = (ctx: CanvasRenderingContext2D, {rows, cols}: Dimensions, color
   }
 };
 
-const makeGrid = (ctx: CanvasRenderingContext2D, {rows, cols}: Dimensions, color: color) => {
+const makeGrid = (ctx: CanvasRenderingContext2D, { rows, cols }: Dimensions, color: Color) => {
   ctx.beginPath();
   for (let i = 0; i < cols; i++) {
     ctx.moveTo(i, 0);
@@ -31,7 +32,7 @@ const makeGrid = (ctx: CanvasRenderingContext2D, {rows, cols}: Dimensions, color
   ctx.stroke();
 };
 
-export const prepareCanvas = (canvasEl: HTMLCanvasElement, {rows, cols}: Dimensions, ratio: number = 35) => {
+export const prepareCanvas = (canvasEl: HTMLCanvasElement, { rows, cols }: Dimensions, ratio = 35) => {
   const width = ratio * cols;
 
   canvasEl.setAttribute('width', String(width));
@@ -44,13 +45,13 @@ export const prepareCanvas = (canvasEl: HTMLCanvasElement, {rows, cols}: Dimensi
   ctx.lineWidth = 1 / ratio;
 };
 
-export const createBGCanvas = (parentEl: Element, dimensions: Dimensions) => {
-  const canvasEl: HTMLCanvasElement = parentEl.querySelector('canvas.bg');
+export const createBGCanvas = (canvasEl: HTMLCanvasElement, dimensions: Dimensions) => {
   prepareCanvas(canvasEl, dimensions);
 
-  const {rows, cols} = dimensions;
+  const { rows, cols } = dimensions;
   const ctx = canvasEl.getContext('2d');
   ctx.fillStyle = ColorEnum.DARK_GRAY;
+  // ctx.fillStyle = '#a3b6ac';
   ctx.fillRect(0, 0, cols, rows);
 
   makeDots(ctx, dimensions, '#ff820170');
@@ -59,15 +60,8 @@ export const createBGCanvas = (parentEl: Element, dimensions: Dimensions) => {
   return canvasEl;
 };
 
-export const nextFigureCanvas = (parentEl: Element, dimensions: Dimensions) => {
-  const canvasEl: HTMLCanvasElement = parentEl.querySelector('canvas.next-figure');
-  prepareCanvas(canvasEl, { rows: 5, cols: 5 }, 20);
-
-  return canvasEl;
-};
-
 export const figureCanvas = (parentEl: Element, dimensions: Dimensions) => {
-  const canvasEl: HTMLCanvasElement = parentEl.querySelector('canvas.figure');
+  const canvasEl: HTMLCanvasElement = parentEl.querySelector('canvas.shape');
   prepareCanvas(canvasEl, dimensions);
 
   return canvasEl;

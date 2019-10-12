@@ -1,8 +1,9 @@
-import {Dimensions} from "./constants";
+import { Dimensions } from './types';
+
 
 export default class Matrix<T> {
-  private array;
-  private _dimensions: Dimensions;
+  public dimensions;
+  public array;
 
   constructor(values) {
     const rows: Array<Array<T>> = [];
@@ -13,10 +14,18 @@ export default class Matrix<T> {
     });
 
     this.array = rows;
-    this._dimensions = {rows: this.array.length, cols: this.array[0].length};
+    this.dimensions = { rows: this.array.length, cols: this.array[0].length || 0 };
   }
 
-  static create({rows, cols}: Dimensions) {
+  get rows() {
+    return this.dimensions.rows;
+  }
+
+  get cols() {
+    return this.dimensions.cols;
+  }
+
+  static create<U>({ rows, cols }: Dimensions): Matrix<U> {
     const array: Array<Array<any>> = [];
 
     for (let i = 0; i < rows; i++) {
@@ -32,9 +41,13 @@ export default class Matrix<T> {
   public fill(value: T) {
     for (let i = 0; i < this.array.length; i++) {
       for (let j = 0; j < this.array[0].length; j++) {
-        this.array[i][j] = null;
+        this.array[i][j] = value;
       }
     }
+  }
+
+  public map(mapFn: (value: T, indexes: { row: number; col: number }) => T) {
+    return this.array.map((rowValues, row) => rowValues.map((value, col) => mapFn(value, { row, col })));
   }
 
   public set(row: number, col: number, value: any) {
@@ -63,21 +76,15 @@ export default class Matrix<T> {
     this.fill(null);
   }
 
-  public dimensions(): Dimensions {
-    return this._dimensions;
-  }
-
   public clone() {
     return new Matrix(this.array);
   }
 
   public entries() {
-    return this.array.map((rowArray, row) => {
-      return rowArray.map((value, col) => [{x: col, y: row}, value]);
-    }).reduce((acc, item) => [...acc, ...item], []);
+    return this.array.map((rowArray, row) => rowArray.map((value, col) => [{ x: col, y: row }, value])).reduce((acc, item) => [...acc, ...item], []);
   }
 
   private boundsCheck(row, col) {
-    return row >= 0 && col >= 0 && row < this._dimensions.rows && col < this._dimensions.cols;
+    return row >= 0 && col >= 0 && row < this.rows && col < this.cols;
   }
 }
