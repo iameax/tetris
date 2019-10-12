@@ -1,36 +1,55 @@
-<html>
-  <body>
-    <main>
-      <div id="game">
-        <div id="playground">
-          <canvas class="bg"></canvas>
-          <canvas class="stacks"></canvas>
-          <canvas class="figure"></canvas>
+<html lang="en">
+<body>
+<main>
+  <div id="gamepad">
+    <div class="monitor">
+      <div id="playground">
+        <canvas class="bg" width="220" height="440"></canvas>
+        <canvas class="board" width="220" height="440"></canvas>
+      </div>
+      <div id="info">
+        <div class="next-figure">
+          <canvas class="next-shape" width="40" height="40"></canvas>
         </div>
-        <div id="info">
-          <div class="score">
-            <span class="label">Score:</span>
-            <div id="score" class="value">
-              1009
-            </div>
+        <div class="score">
+          <span class="label">Score:</span>
+          <div id="score" class="value">
+            0
           </div>
-          <div class="level">
-            <span class="label">Level:</span>
-            <div id="level" class="value">
-              1
-            </div>
-          </div>
-          <div class="next-figure">
-            <span class="label">Next:</span>
-            <div id="next-figure">
-              <canvas class="next-figure"></canvas>
-            </div>
+        </div>
+        <div class="level">
+          <span class="label">Level:</span>
+          <div id="level" class="value">
+            1
           </div>
         </div>
       </div>
-      <div id="controls">
-        <button id="start-btn">Start!</button>
+    </div>
+    <div class="controls">
+      <div class="controls__top">
+        <div>
+          <button id="on-off">On/Off</button>
+          <button id="reset">Reset</button>
+        </div>
+
+        <div class="switchers">
+          <button id="pause">Pause</button>
+          <button id="mute">Mute</button>
+        </div>
       </div>
-    </main>
-  </body>
+      <div class="controls__bottom">
+        <div class="arrows">
+          <button class="up" id="up">Up</button>
+          <button class="left" id="left">Left</button>
+          <button class="right" id="right">Right</button>
+          <button class="down" id="down">Down</button>
+        </div>
+        <div class="action">
+          <button id="rotate">Rotate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
 </html>

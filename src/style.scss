@@ -1,0 +1,219 @@
+$gamepad_bg: #242424;
+$monitor_bg: #a3b6ac;
+$monitor_black: #212121;
+$monitor_font_size: 18px;
+
+$controls_size: 20px;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: monospace;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#gamepad {
+  background-color: $gamepad_bg;
+  border-radius: 30px;
+  height: 800px;
+  width: 410px;
+  padding: 45px;
+  box-shadow: -3px 4px 1px 4px #3c3c3c, inset 1px -1px 10px rgba(255, 255, 255, 0.3), 10px 10px 20px #060606;
+}
+
+.monitor {
+  background-color: $monitor_bg;
+  font-size: $monitor_font_size;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #000;
+  height: 446px;
+}
+
+#playground {
+  position: relative;
+  height: 100%;
+
+  canvas.board {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
+}
+
+#info {
+  border-left: 1px dashed $monitor_black;
+  color: $monitor_black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  text-align: center;
+  height: 100%;
+
+  & > * {
+    margin: 10px 15px 55px 15px;
+  }
+
+  .value {
+    font-size: 120%;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .next-figure {
+    padding: 10px 0;
+    margin: 10px auto;
+  }
+}
+
+@mixin button($scale: 1) {
+  $highlight: inset 1px -1px #{$scale}px rgba(255, 255, 255, 0.15);
+  $shape: -2px #{$scale}px 1px 1px #A5A5A4;
+  $shadow: #{$scale}px #{$scale * 2}px #{$scale}px 0 black;
+
+  width: 10px * $scale;
+  height: 10px * $scale + 14px;
+  min-width: 30px;
+
+  &:before {
+    content: '';
+    display: block;
+    position: relative;
+    margin: 10px * $scale / 4 auto;
+    transition: all .1s ease;
+
+    width: 10px * $scale;
+    height: 10px * $scale;
+    border-radius: 50%;
+    background-color: #d6d6d6;
+    box-shadow:
+            $shape,
+            $highlight,
+            $shadow;
+  }
+
+  &:active:before {
+    transform: translate(-2px, #{$scale}px);
+    box-shadow:
+            0 0 1px 1px #A5A5A4,
+            inset 1px -1px #{$scale}px rgba(255, 255, 255, 0),
+            #{$scale / 2}px #{$scale}px #{$scale}px black;
+  }
+}
+
+.controls {
+  margin: 15px 0;
+  color: #fff;
+  position: relative;
+
+  button {
+    outline: none;
+    appearance: none;
+    position: relative;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-size: 10px;
+    user-select: none;
+    cursor: pointer;
+
+    color: #fff;
+  }
+
+  .section {
+
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      @include button(1);
+
+      &:active {
+        &:before {
+          background-color: #00bf00;
+          box-shadow: none;
+        }
+        color: #00bf00;
+      }
+
+      margin-right: 15px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+
+  .arrows {
+    position: relative;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+
+    $arrow_btn_width: 26px;
+    $arrow_btn_height: 40px;
+
+    button {
+      @include button(2);
+
+      width: 26px;
+      height: 40px;
+      position: absolute;
+    }
+
+    .up {
+      top: 0;
+      left: calc(50% - (#{$arrow_btn_width} / 2));
+    }
+
+    .down {
+      bottom: 0;
+      left: calc(50% - (#{$arrow_btn_width} / 2));
+    }
+
+    .left {
+      top: calc(50% - (#{$arrow_btn_height} / 2));
+      left: 0;
+    }
+
+    .right {
+      top: calc(50% - (#{$arrow_btn_height} / 2));
+      right: 0;
+    }
+  }
+
+  .action {
+    position: relative;
+    right: 35px;
+
+    button {
+      @include button(5);
+    }
+  }
+}

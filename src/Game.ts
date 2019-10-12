@@ -22,6 +22,7 @@ export default class Game {
   private keyListeners = {
     [KeyCode.ENTER]: () => this.start(),
     [KeyCode.ESC]: () => this.end(),
+    [KeyCode.P]: () => this.pause(),
   };
 
   private nextShape: Matrix<number>;
@@ -31,7 +32,7 @@ export default class Game {
     this.state = state;
 
     this.playground = new Playground(el.querySelector('#playground'), {
-      dimensions: { rows: 17, cols: 10 },
+      dimensions: { rows: 20, cols: 10 },
       speed: this.state.level,
       listeners: {
         onCollapse: (lines: number) => this.addPoints(lines),
@@ -55,6 +56,10 @@ export default class Game {
 
   end() {
     this.playground.clear();
+  }
+
+  pause() {
+    this.playground.togglePause();
   }
 
   private next(): void {
@@ -87,7 +92,7 @@ export default class Game {
 
   private addEventListeners() {
     document.addEventListener('keydown', (e: any) => {
-      const listener = this.keyListeners[e.keyCode];
+      const listener = this.keyListeners[e.code];
 
       if (listener) {
         listener();

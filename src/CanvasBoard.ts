@@ -10,10 +10,12 @@ export default class CanvasBoard {
   public dimensions: Dimensions;
   private ctx: CanvasRenderingContext2D;
 
-  constructor(canvas, scale, dimensions: Dimensions) {
+  constructor(canvas, dimensions: Dimensions) {
     this.ctx = canvas.getContext('2d');
-    this.ctx.scale(scale, scale);
-    this.ctx.lineWidth = 2 / scale;
+    const scaleRatio = canvas.width / dimensions.cols;
+
+    this.ctx.scale(scaleRatio, scaleRatio);
+    this.ctx.lineWidth = 2 / scaleRatio;
     this.dimensions = dimensions;
   }
 
@@ -23,7 +25,7 @@ export default class CanvasBoard {
     for (let y = 0; y < matrix.rows; y++) {
       for (let x = 0; x < matrix.cols; x++) {
         if (matrix.get(y, x)) {
-          this.fillCell(offsetX + x, offsetY + y, color);
+          this.fillBWCell(offsetX + x, offsetY + y);
         }
       }
     }
@@ -35,7 +37,7 @@ export default class CanvasBoard {
     for (let y = 0; y < matrix.rows; y++) {
       for (let x = 0; x < matrix.cols; x++) {
         if (matrix.get(y, x)) {
-          this.fillCell(x, y, matrix.get(y, x));
+          this.fillBWCell(x, y);
         }
       }
     }

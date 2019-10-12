@@ -13,14 +13,13 @@ class PlaygroundView {
 
   constructor(el, dimensions, handlers) {
     createBGCanvas(el.querySelector('canvas.bg'), dimensions);
-    this.board = new CanvasBoard(el.querySelector('canvas.board'), 35, dimensions);
+    this.board = new CanvasBoard(el.querySelector('canvas.board'), dimensions);
 
     this.addEventListeners({
       [KeyCode.SPACE]: () => handlers.onRotate(),
       [KeyCode.ARROW_LEFT]: () => handlers.onMoveLeft(),
       [KeyCode.ARROW_RIGHT]: () => handlers.onMoveRight(),
       [KeyCode.ARROW_DOWN]: () => handlers.onDrop(),
-      [KeyCode.P]: () => handlers.onPause(),
     });
   }
 
@@ -165,7 +164,6 @@ export default class Playground {
     return false;
   }
 
-  //
   public togglePause() {
     if (this.isRunning) {
       this.stop();

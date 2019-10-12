@@ -25,6 +25,14 @@ module.exports = {
         loader: "source-map-loader"
       },
       {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
         exclude: /node_modules/,

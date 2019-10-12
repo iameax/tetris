@@ -23,7 +23,7 @@ export default class InfoPanel {
     this.scoreEl = el.querySelector('#score');
     this.state = state;
     
-    this.board = new CanvasBoard(el.querySelector('canvas.next-shape'), 25, {
+    this.board = new CanvasBoard(el.querySelector('canvas.next-shape'), {
       rows: 4,
       cols: 4
     });
