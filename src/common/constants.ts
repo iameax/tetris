@@ -17,6 +17,15 @@ export enum ColorEnum {
   GREEN = 'green',
 }
 
+export enum Sound {
+  ROTATE = 'rotate',
+  BLOCK = 'block',
+  LAND = 'land',
+  COLLAPSE = 'collapse',
+  PAUSE = 'pause',
+  GAMEOVER = 'gameover',
+}
+
 export const FIGURE_COLORS = ['#673ab7', '#e91e63', '#ff5722', '#4caf50'];
 
 export enum Direction {
@@ -32,26 +41,23 @@ export enum KeyCode {
   ARROW_LEFT = 'ArrowLeft',
   ARROW_RIGHT = 'ArrowRight',
   ARROW_DOWN = 'ArrowDown',
+  ARROW_UP = 'ArrowUp',
   P = 'KeyP',
+  M = 'KeyM',
 }
 
-export enum AudioType {
-  ROTATE = 'rotate',
-  BLOCK = 'block',
-  LAND = 'land',
-  COLLAPSE = 'collapse',
+export enum Control {
+  POWER = 'power',
+  RESET = 'reset',
   PAUSE = 'pause',
-  GAMEOVER = 'gameover',
+  MUTE = 'mute',
+  ARROW_UP = 'arrow-up',
+  ARROW_RIGHT = 'arrow-right',
+  ARROW_LEFT = 'arrow-left',
+  ARROW_DOWN = 'arrow-down',
+  ACTION = 'action',
+  RGB = 'theme',
 }
-
-export const AUDIOS = {
-  [AudioType.ROTATE]: new Audio('./sounds/block-rotate.mp3'),
-  [AudioType.BLOCK]: new Audio('./sounds/force-hit.mp3'),
-  [AudioType.LAND]: new Audio('./sounds/slow-hit.mp3'),
-  [AudioType.COLLAPSE]: new Audio('./sounds/whoosh.mp3'),
-  [AudioType.PAUSE]: new Audio('./sounds/pause.mp3'),
-  [AudioType.GAMEOVER]: new Audio('./sounds/gameover.mp3'),
-};
 
 export const SHAPES: Matrix<number>[] = [
   new Matrix([

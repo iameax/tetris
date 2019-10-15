@@ -14,7 +14,7 @@ export default class Matrix<T> {
     });
 
     this.array = rows;
-    this.dimensions = { rows: this.array.length, cols: this.array[0].length || 0 };
+    this.dimensions = {rows: this.array.length, cols: this.array[0].length || 0};
   }
 
   get rows() {
@@ -25,7 +25,7 @@ export default class Matrix<T> {
     return this.dimensions.cols;
   }
 
-  static create<U>({ rows, cols }: Dimensions): Matrix<U> {
+  static create<U>({rows, cols}: Dimensions): Matrix<U> {
     const array: Array<Array<any>> = [];
 
     for (let i = 0; i < rows; i++) {
@@ -47,7 +47,7 @@ export default class Matrix<T> {
   }
 
   public map(mapFn: (value: T, indexes: { row: number; col: number }) => T) {
-    return this.array.map((rowValues, row) => rowValues.map((value, col) => mapFn(value, { row, col })));
+    return this.array.map((rowValues, row) => rowValues.map((value, col) => mapFn(value, {row, col})));
   }
 
   public set(row: number, col: number, value: any) {
@@ -72,6 +72,14 @@ export default class Matrix<T> {
     this.array[row] = values;
   }
 
+  public addRow(values: Array<T>) {
+    this.array.unshift(values);
+  }
+
+  public deleteRow(row) {
+    this.array.splice(row, 1);
+  }
+
   public clear() {
     this.fill(null);
   }
@@ -81,7 +89,18 @@ export default class Matrix<T> {
   }
 
   public entries() {
-    return this.array.map((rowArray, row) => rowArray.map((value, col) => [{ x: col, y: row }, value])).reduce((acc, item) => [...acc, ...item], []);
+    return this.array.map((rowArray, row) => rowArray.map((value, col) => [{
+      x: col,
+      y: row,
+    }, value])).reduce((acc, item) => [...acc, ...item], []);
+  }
+
+  * [Symbol.iterator]() {
+    for (let y = 0; y < this.array.length; y++) {
+      for (let x = 0; x < this.array[0].length; x++) {
+        yield [{ x, y }, this.array[y][x]];
+      }
+    }
   }
 
   private boundsCheck(row, col) {

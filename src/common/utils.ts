@@ -1,28 +1,28 @@
-import { AUDIOS, FIGURE_COLORS, SHAPES } from './constants';
+import { SHAPES } from './constants';
 import Matrix from './Matrix';
 import { Color } from './types';
+
 
 const Color = require('color');
 
 
-const arrayRandom = <T>(array: T[]): T => {
+export const arrayRandom = <T>(array: T[]): T => {
   const index = Math.floor(Math.random() * array.length);
 
   return array[index];
 };
-
-export const randomColor = (): Color => arrayRandom(FIGURE_COLORS);
 
 export const randomShape = (): Matrix<number> => arrayRandom(SHAPES);
 
 // noinspection TypeScriptValidateJSTypes
 export const colorLighten = (color: Color, amount: number) => Color(color).lighten(amount).string();
 
-export const playAudio = (type: string) => {
-  const audio: HTMLAudioElement = AUDIOS[type];
+export const mapValues = (values, fn) => {
+  const newValues = {};
 
-  if (audio) {
-    audio.currentTime = 0;
-    audio.play();
+  for (const key in values) {
+    newValues[key] = fn(values[key], key);
   }
+
+  return newValues;
 };

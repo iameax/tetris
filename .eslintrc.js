@@ -16,6 +16,7 @@ module.exports =  {
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     // BASE
+    "semi": ["warn", "always"],
     "object-curly-spacing": ["error", "always"],
     "arrow-body-style": ["error", "as-needed"],
     "max-statements-per-line": ["error", { "max": 1 }],

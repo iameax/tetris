@@ -1,25 +1,29 @@
-import Figure from '../Figure';
-import Matrix from '../Matrix';
-import { Color, Dimensions } from '../types';
+import Figure from '../common/Figure';
+import Matrix from '../common/Matrix';
+import { Dimensions } from '../common/types';
 
 
 export default class Stacks {
-  public data: Matrix<Color>;
+  public data: Matrix<any>;
 
-  constructor(dimensions: Dimensions) {
-    this.data = Matrix.create(dimensions);
+  constructor(dimensions: Dimensions, data = Matrix.create(dimensions)) {
+    this.data = data;
   }
 
   public addFigure(figure: Figure) {
+    const newStacks = new Stacks(this.data.dimensions, this.data.clone());
+
     const { shape, position, color } = figure;
 
     for (let y = 0; y < shape.rows; y++) {
       for (let x = 0; x < shape.cols; x++) {
         if (shape.get(y, x)) {
-          this.data.set(position.y + y, position.x + x, color);
+          newStacks.data.set(position.y + y, position.x + x, color);
         }
       }
     }
+
+    return newStacks;
   }
 
   public clear() {
@@ -64,16 +68,17 @@ export default class Stacks {
       if (isFilled) {
         lines++;
 
-
-        // TODO change
-        this.data.setRow(row, values.map(() => '#fafafa'));
+        this.data.array.splice(row, 1);
+        this.data.array.unshift(values.map(() => null));
+        // animation
+        /*this.data.setRow(row, values.map(() => '#fafafa'));
         setTimeout(() => this.data.setRow(row, values), 100);
         setTimeout(() => this.data.setRow(row, values.map(() => '#fafafa')), 150);
         setTimeout(() => this.data.setRow(row, values.map(() => null)), 200);
         setTimeout(() => {
           this.data.array.splice(row, 1);
           this.data.array.unshift(values.map(() => null));
-        }, 250);
+        }, 250);*/
       }
     }
 
