@@ -24,6 +24,7 @@ main {
 }
 
 #gamepad {
+  user-select: none;
   background-color: $gamepad_bg;
   border-radius: 30px;
   height: 800px;

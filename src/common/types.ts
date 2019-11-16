@@ -1,6 +1,6 @@
 import Matrix from './Matrix';
 import { Control } from './constants';
-import { Sound } from '../../oldsrc/constants';
+import { Sound } from './constants';
 
 
 export type Dimensions = {
